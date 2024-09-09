@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDk_6YpNpeASBHg_kW6F92G_6YoMacuMH8=initAutocomplete" async defer>
+      //   (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      //     key: "AIzaSyDc5wuJWtcrYoJWVo97h1XPlzmqr2FJq0Q",
+      //     v: "weekly",
+      //     // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+      //     // Add other bootstrap parameters as needed, using camel case.
+      //   });
+        </script>
+      <script src="JS/map.js"></script>
+      <script>
+        function initAutocomplete(){
+          var input = $('#autocomplete')[0];
+          var autocomplete = new google.maps.places.Autocomplete(input);
+
+          //recuperar el boton y dar funcion
+          const mybutton = $('myButton');
+          mybutton.on('click', function(){
+            var place = autocomplete.getPlace();
+            getGoogleMapsIframe(place.formatted_address);
+          });  
+        }
+
+        function getGoogleMapsIframe(address) {
+          const mapUrl = `https://www.google.com/maps/embed/v1/place?q=${encodeURIComponent(address)}&key=AIzaSyDk_6YpNpeASBHg_kW6F92G_6YoMacuMH8`
+
+          const iframe = $('<iframe></iframe>');
+            iframe.attr('src', mapUrl);
+            iframe.attr('height', '450');
+            iframe.attr('frameborder', '0');
+            iframe.attr('style', 'border:0; wight: 100%; margin-top: 15px;')
+
+          $('#maps').append(iframe);
+        }
+      </script>
+      <link rel="stylesheet" href="CSS/style.css">
+
+    <title>Servicios</title>
+</head>
+<body>
+
+  <div style="text-align: center; display: grid; grid-template-columns: 6fr 1fr; grid-gap: 10px;">
+    <input type="text" id="autocomplete" placeholder="escribe la ubicación aquí...">
+    <button id="mybutton">Crear mapa</button>
+  </div>
+    
+</body>
+</html>
